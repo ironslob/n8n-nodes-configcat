@@ -22,10 +22,6 @@ export class ConfigCat implements INodeType {
         inputs: ['main'],
         outputs: ['main'],
         credentials: [
-            {
-                name: 'configCatSdk',
-                required: true,
-            },
         ],
         properties: [
             // resources and operations will go here
