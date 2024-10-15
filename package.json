@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-configcat",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "n8n node for retrieving and branching based on ConfigCat feature flags",
   "keywords": [
     "n8n-community-node-package"

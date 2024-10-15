@@ -42,14 +42,16 @@ export class ConfigCat implements INodeType {
                 description: 'Feature flag name',
             },
             // TODO add user identification
+            // TODO add defaults
         ],
     };
     // The execute method will go here
     async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
         const returnData = [];
         const featureFlag = this.getNodeParameter('featureFlag', 0) as string;
-        const featureFlagDefault = true;
-        const configCatClient = configcat.getClient('#YOUR-SDK-KEY#');
+        const sdkKey = this.getNodeParameter('sdkKey', 0) as string;
+        const featureFlagDefault = null;
+        const configCatClient = configcat.getClient(sdkKey);
         const value = await configCatClient.getValueAsync(
             featureFlag,
             featureFlagDefault,
