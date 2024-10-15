@@ -56,7 +56,35 @@ export class ConfigCat implements INodeType {
                 default: 'false',
                 description: 'Default value',
             },
-            // TODO add user identification
+            {
+                displayName: 'Targeting rules are described here - https://configcat.com/docs/targeting/targeting-overview/',
+                name: 'notice',
+                type: 'notice',
+                default: '',
+            },
+            {
+                displayName: 'User ID',
+                name: 'userIdentifier',
+                type: 'string',
+                description: 'Unique user ID',
+                placeholder: '',
+                default: '',
+            },
+            {
+                displayName: 'User Email',
+                name: 'userEmail',
+                type: 'string',
+                description: 'User email address',
+                placeholder: '',
+                default: '',
+            },
+            {
+                displayName: 'User Country',
+                name: 'userCountry',
+                type: 'string',
+                placeholder: '',
+                default: '',
+            },
         ],
     };
     // The execute method will go here
@@ -65,10 +93,24 @@ export class ConfigCat implements INodeType {
         const featureFlag = this.getNodeParameter('featureFlag', 0) as string;
         const sdkKey = this.getNodeParameter('sdkKey', 0) as string;
         const featureFlagDefault = this.getNodeParameter('default', 0) as string;
+        const userIdentifier = this.getNodeParameter('userIdentifier', 0) as string;
+        let userObject = null;
+
+        if (userIdentifier) {
+            const userEmail = this.getNodeParameter('userEmail', 0) as string;
+            const userCountry = this.getNodeParameter('userCountry', 0) as string;
+            userObject = new configcat.User(
+                userIdentifier,
+                userEmail,
+                userCountry,
+            );
+        }
+
         const configCatClient = configcat.getClient(sdkKey);
         const value = await configCatClient.getValueAsync(
             featureFlag,
             JSON.parse(featureFlagDefault),
+            userObject,
         );
         let newItem: INodeExecutionData = {
             json: {},
