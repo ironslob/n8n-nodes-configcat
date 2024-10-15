@@ -3,6 +3,7 @@ import {
     INodeExecutionData,
     INodeType,
     INodeTypeDescription,
+    LoggerProxy as Logger,
 } from 'n8n-workflow';
 
 const configcat = require('configcat-node');
@@ -50,6 +51,8 @@ export class ConfigCat implements INodeType {
         const returnData = [];
         const featureFlag = this.getNodeParameter('featureFlag', 0) as string;
         const sdkKey = this.getNodeParameter('sdkKey', 0) as string;
+        Logger.info(`featureFlag = "${featureFlag}"`)
+        Logger.info(`sdkKey = "${sdkKey}"`)
         const featureFlagDefault = null;
         const configCatClient = configcat.getClient(sdkKey);
         const value = await configCatClient.getValueAsync(
