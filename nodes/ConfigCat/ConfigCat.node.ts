@@ -54,7 +54,6 @@ export class ConfigCat implements INodeType {
                 name: 'default',
                 type: 'json',
                 default: 'false',
-                required: false,
                 description: 'Default value',
             },
             // TODO add user identification
