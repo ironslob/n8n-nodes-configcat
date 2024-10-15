@@ -10,7 +10,7 @@ const configcat = require('configcat-node');
 export class ConfigCat implements INodeType {
     description: INodeTypeDescription = {
         // basic node details will go here
-        displayName: 'configcat',
+        displayName: 'ConfigCat',
         name: 'configcat',
         icon: 'file:configcat.svg',
         group: ['transform'],
