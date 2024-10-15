@@ -41,10 +41,23 @@ export class ConfigCat implements INodeType {
                 default: '',
                 required: true,
                 description: 'Feature flag name',
-                placeholder: 'configcat-sdk-1/...',
+                placeholder: 'configcat-sdk-3/...',
+            },
+            {
+                displayName: 'Default value must reflect the type of feature flag, but can be whatever parse as JSON (false, 4, foo, [1,2,3], etc.)',
+                name: 'notice',
+                type: 'notice',
+                default: '',
+            },
+            {
+                displayName: 'Default',
+                name: 'default',
+                type: 'json',
+                default: 'false',
+                required: false,
+                description: 'Default value',
             },
             // TODO add user identification
-            // TODO add defaults
         ],
     };
     // The execute method will go here
@@ -52,16 +65,16 @@ export class ConfigCat implements INodeType {
         const returnData = [];
         const featureFlag = this.getNodeParameter('featureFlag', 0) as string;
         const sdkKey = this.getNodeParameter('sdkKey', 0) as string;
-        const featureFlagDefault = null;
+        const featureFlagDefault = this.getNodeParameter('default', 0) as string;
         const configCatClient = configcat.getClient(sdkKey);
         const value = await configCatClient.getValueAsync(
             featureFlag,
-            featureFlagDefault,
+            JSON.parse(featureFlagDefault),
         );
         let newItem: INodeExecutionData = {
             json: {},
         };
-        newItem[featureFlag] = value;
+        newItem.json[featureFlag] = value;
         returnData.push(newItem);
         configCatClient.dispose();
 

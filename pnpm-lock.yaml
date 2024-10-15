@@ -8,9 +8,15 @@ importers:
 
   .:
     dependencies:
+      Configcat:
+        specifier: link:/Users/mattwilson/projects/n8n-nodes-configcat/nodes/Configcat
+        version: link:nodes/Configcat
       configcat-node:
         specifier: ^11.3.1
         version: 11.3.1
+      nodes:
+        specifier: link:/Users/mattwilson/projects/n8n-nodes-configcat/nodes
+        version: link:nodes
     devDependencies:
       '@types/node':
         specifier: ^22.7.5
