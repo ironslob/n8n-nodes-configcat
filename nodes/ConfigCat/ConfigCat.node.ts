@@ -3,7 +3,6 @@ import {
     INodeExecutionData,
     INodeType,
     INodeTypeDescription,
-    LoggerProxy as Logger,
 } from 'n8n-workflow';
 
 const configcat = require('configcat-node');
@@ -33,6 +32,7 @@ export class ConfigCat implements INodeType {
                 default: '',
                 required: true,
                 description: 'Feature flag name',
+                placeholder: 'myFeatureName',
             },
             {
                 displayName: 'SDK Key',
@@ -41,6 +41,7 @@ export class ConfigCat implements INodeType {
                 default: '',
                 required: true,
                 description: 'Feature flag name',
+                placeholder: 'configcat-sdk-1/...',
             },
             // TODO add user identification
             // TODO add defaults
@@ -51,17 +52,19 @@ export class ConfigCat implements INodeType {
         const returnData = [];
         const featureFlag = this.getNodeParameter('featureFlag', 0) as string;
         const sdkKey = this.getNodeParameter('sdkKey', 0) as string;
-        Logger.info(`featureFlag = "${featureFlag}"`)
-        Logger.info(`sdkKey = "${sdkKey}"`)
         const featureFlagDefault = null;
         const configCatClient = configcat.getClient(sdkKey);
         const value = await configCatClient.getValueAsync(
             featureFlag,
             featureFlagDefault,
         );
-        returnData.push(value);
+        let newItem: INodeExecutionData = {
+            json: {},
+        };
+        newItem[featureFlag] = value;
+        returnData.push(newItem);
         configCatClient.dispose();
 
-        return [this.helpers.returnJsonArray(returnData)];
+        return [returnData];
     }
 }
