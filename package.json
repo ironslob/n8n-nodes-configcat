@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-configcat",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "n8n node for retrieving and branching based on ConfigCat feature flags",
   "keywords": [
     "n8n-community-node-package"
@@ -51,8 +51,6 @@
     "typescript": "^5.5.3"
   },
   "dependencies": {
-    "Configcat": "link:/Users/mattwilson/projects/n8n-nodes-configcat/nodes/Configcat",
-    "configcat-node": "^11.3.1",
-    "nodes": "link:/Users/mattwilson/projects/n8n-nodes-configcat/nodes"
+    "configcat-node": "^11.3.1"
   }
 }
