@@ -17,7 +17,7 @@ export class ConfigCat implements INodeType {
         version: 1,
         description: 'configcat feature flags',
         defaults: {
-            name: 'configcat',
+            name: 'ConfigCat',
         },
         inputs: ['main'],
         outputs: ['main'],
